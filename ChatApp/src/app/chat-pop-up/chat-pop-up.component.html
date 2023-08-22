@@ -1,28 +1,27 @@
 <div class="chatbox">
-    <div class="chatbox__support">
-        <div class="chatbox__header">
+    <div [ngStyle]="{'opacity': (isLow == true) ? '0' : '100'}" class="chatbox__support"> 
+        <div class="chatbox__header"  mat-fab color="primary" >
             Chat support!
         </div>
         <div class="messages">
-            <div>
+            <div *ngFor="let item of Messages">
                 <div class="messages__item--visitor">
-                    Hi!
-                </div>
-                <div class="messages__item--operator">
-                    What is it?
-                </div>
-                .<div class="messages__item--typing">
-                    <span class="messages__dot"></span>
-                    <span class="messages__dot"></span>
-                    <span class="messages__dot"></span>
+                    <div class=" Chat-Style" [ngStyle]="{'float': (item.IsRecieve == true) ? 'left' : 'right'}">{{item.Message}}</div>
                 </div>
             </div>
         </div>
         <div class="chatbox__footer">
-            <input type="text" placeholder="Write a message">
+            <form class="example-form" (onSubmit)="onSendMessage()" name="SendMessage" [formGroup]="SendMessage">
+                <mat-form-field class="example-full-width">
+                  <input matInput maxlength="299" placeholder="Ex. I need help with..." formControlName="Message" (keyup.enter)="onSendMessage()" >
+
+                </mat-form-field>
+              </form>
         </div>
     </div>
     <div class="chatbox__button">
-        <button>I'm a button!</button>
+        <button (click)="toggleOpacity()"  mat-fab color="primary" aria-label="Example icon button with a home icon">
+            <mat-icon>message</mat-icon>
+        </button>
     </div>
 </div>
